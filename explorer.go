@@ -109,11 +109,15 @@ func main() {
 		serveMux: http.NewServeMux(),
 	}
 
-	es.serveMux.Handle("/", http.FileServer(http.Dir("./webroot/")))
+	http.Handle("/static/", http.StripPrefix("/static", http.FileServer(http.Dir("./static/"))))
 	http.HandleFunc("/", es.rootHandler)
 	http.HandleFunc("/hash", es.hashPageHandler)
 	http.HandleFunc("/height", es.heightHandler)
-	http.HandleFunc("/hosts", es.hostsHandler)
+	http.HandleFunc("/hosts", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "static/hosts.html")
+	})
+	http.HandleFunc("/hosts.json", es.hostsHandler)
+
 	err := http.ListenAndServe(":"+*hostPort, nil)
 	if err != nil {
 		fmt.Println("Error when serving:", err)

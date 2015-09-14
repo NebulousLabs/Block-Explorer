@@ -1,0 +1,24 @@
+td#hostCount {
+	font-weight: bold;
+}
+
+#hostsTable th {
+	font-size: 14pt;
+	padding: 2px 14px;
+}
+
+#hostsTable th a {
+	text-decoration: none;
+}
+
+#hostsTable td {
+	padding: 2px 8px;
+}
+
+td.storage {
+	text-align: right;
+}
+
+td.price {
+	text-align: right;
+}
