@@ -73,7 +73,9 @@
 		hosts.sort(sortFunc);
 		hosts.forEach(function (host) {
 			var storageFormatted = formatStorage(host.TotalStorage, "GB");
-			var priceFormatted = (host.Price / 1000000).toFixed(2) + " SC";
+			// 1 SC = 10^24 H
+			var hastingsPerSC = Math.pow(10, 24);
+			var priceFormatted = (host.Price / hastingsPerSC).toFixed(2) + " SC";
 
 			$('#hostsTable > tbody:last')
 				.append($('<tr>')
