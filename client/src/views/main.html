@@ -1,0 +1,45 @@
+<div class="row">
+<div class="medium-4 medium-offset-4 columns text-center">
+    <br>
+    <b>Welcome to the Sia Explorer</b>
+</div>
+</div>
+<div class="row">
+    <div class="medium-8 medium-offset-2 text-center columns">
+        <p>
+        Interested in learning more about Sia? Check out <a href="http://siacoin.com/">http://siacoin.com/</a>.
+        </p>
+    </div>
+</div>
+<div class='row'>
+    <div class="medium-3 medium-offset-2 columns">
+        <b>Block Height</b>: <br>
+        {{ status.Height }} blocks
+    </div>
+    <div class="medium-5 columns end">
+        <table>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Active Contracts</th>
+                    <th>Total Contracts</th>
+                </tr>
+            </thead>
+            <tr>
+                <td><b>Contract Count</b></td>
+                <td>{{ status.ActiveContractCount | number }}</td>
+                <td>{{ status.TotalContractCount | number }}</td>
+            </tr>
+            <tr>
+                <td><b>Contract Sizes</b></td>
+                <td>{{ ConvSrvc.bytesToGB(status.ActiveContractSize) | number }} GB</td>
+                <td>{{ ConvSrvc.bytesToGB(status.TotalContractSize) | number }} GB</td>
+            </tr>
+            <tr>
+                <td><b>Contract Costs</b></td>
+                <td>{{ ConvSrvc.hastingsToString(status.ActiveContractCosts) | number }} SC</td>
+                <td>{{ ConvSrvc.hastingsToString(status.TotalContractCosts) | number }} SC</td>
+            </tr>
+        </table>
+    </div>
+</div>

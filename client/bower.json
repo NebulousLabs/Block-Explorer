@@ -1,0 +1,12 @@
+{
+  "name": "Sia-Explorer",
+  "description": "A blockchain explorer for Sia",
+  "version": "0.0.0",
+  "homepage": "https://github.com/NebulousLabs/Sia-Explorer",
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-route": "~1.4.0",
+    "foundation": "~5.5.2",
+    "jquery": "2.1.1"
+  }
+}

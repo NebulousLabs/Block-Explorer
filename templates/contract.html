@@ -1,0 +1,7 @@
+{{printf "File Contract %x" .FcID |  parseTemplate "header.template" | printf "%s"}}
+{{parseTransaction .Contract | printf "%s"}}
+{{range .Revisions}}
+{{parseTransaction . | printf "%s"}}
+{{end}}
+{{parseTransaction .Proof | printf "%s"}}
+{{printf "File Contract %x" .FcID |  parseTemplate "footer.template" | printf "%s"}}

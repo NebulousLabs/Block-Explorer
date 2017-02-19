@@ -1,0 +1,4 @@
+{{printf "Output ID %x" .OutputID |  parseTemplate "header.template" | printf "%s"}}
+{{txidToHash .OutputTx | parseTransaction | printf "%s"}}
+{{txidToHash .InputTx | parseTransaction | printf "%s"}}
+{{printf "Output ID %x" .OutputID |  parseTemplate "footer.template" | printf "%s"}}

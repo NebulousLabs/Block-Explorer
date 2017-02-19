@@ -1,0 +1,73 @@
+<html>
+  <head>
+    <title>Sia Explorer Alpha</title>
+  </head>
+  <body>
+    <h1>Sia Explorer Alpha</h1>
+    <table>
+      <tr>
+	<td>Current Blockchain Height</td>
+	<td>{{.Explorer.Height}}</td>
+      </tr>
+      <tr>
+	<td>Total Siacoin</td>
+	<td>{{siacoinString .Explorer.TotalCurrency}}</td>
+      </tr>
+      <tr>
+	<td>Active file contracts</td>
+	<td>{{.Explorer.ActiveContractCount}}</td>
+      </tr>
+      <tr>
+	<td>Size of active file contracts</td>
+	<td>{{byteString .Explorer.ActiveContractSize}}</td>
+      </tr>
+      <tr>
+	<td>Siacoin spent on active file contracts</td>
+	<td>{{siacoinString .Explorer.ActiveContractCosts}}</td>
+      </tr>
+      <tr>
+	<td>Total file contracts</td>
+	<td>{{.Explorer.TotalContractCount}}</td>
+      </tr>
+      <tr>
+	<td>Size of all file contracts</td>
+	<td>{{byteString .Explorer.TotalContractSize}}</td>
+      </tr>
+      <tr>
+	<td>Total Siacoin spent on file contracts</td>
+	<td>{{siacoinString .Explorer.TotalContractCosts}}</td>
+      </tr>
+      <tr>
+	<td>Hash rate (last 1000 blocks)</td>
+	<td>{{hashAvgString 1000 .}}</td>
+      </tr>
+      <tr>
+	<td>Hash rate (last 100 blocks)</td>
+	<td>{{hashAvgString 100 .}}</td>
+      </tr>
+      <tr>
+	<td>Hash rate (last 25 blocks)</td>
+	<td>{{hashAvgString 25 .}}</td>
+      </tr>
+      <tr>
+	<td>Seen time of newest mature block</td>
+	<td>{{timeString .Explorer.MatureTime}}</td>
+      </tr>
+      <tr>
+	<td>Explorer node version</td>
+	<td>{{.NodeVersion}}</td>
+      </tr>
+    </table>
+    <a href="hosts">Hosts</a>
+    <h4>Request Hash</h4>
+    <form action='hash' method="get">
+      <input type="text" name="h" style="width:500px" />
+      <input type="submit" name="submit" value="Submit" />
+    </form>
+    <h4>Block By Height</h4>
+    <form action='height' method="get">
+      <input type="text" name="h" style="width:500px" />
+      <input type="submit" name="submit" value="Submit" />
+    </form>
+  </body>
+</html>

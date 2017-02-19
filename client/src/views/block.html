@@ -1,0 +1,15 @@
+<div class="row">
+<div class="small-12 text-center">
+    <br>
+    <b>Block: {{ hash }}</b>
+    <br>
+    <p>
+    Parent: <a ng-href="#/block/{{ block.parentid }}">{{ block.parentid }}</a>
+    </p>
+</div>
+</div>
+<div class="row">
+    <div class="large-8 medium-10 large-offset-2 medium-offset-1">
+        Payout: {{ ConvSrvc.hastingsToString(block.minerpayouts[0].value) | number }} SC
+    </div>
+</div>

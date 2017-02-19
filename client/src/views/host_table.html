@@ -1,0 +1,15 @@
+<table>
+<thead>
+    <td width="50"><a ng-click="sortBy('IPAddress')">Address</a></td>
+    <td width="300"><a ng-click="sortBy('TotalStorage')">Total Storage</a></td>
+    <td width="200"><a ng-click="sortBy('MaxDuration')">Max Duration</a></td>
+    <td width="200"><a ng-click="sortBy('Price')">Price</a></td>
+</thead>
+<tbody>
+    <tr data-host-row ng-repeat="host in hosts | orderBy:sortOrder" ></tr>
+    <tr ng-hide="hosts.length">
+        <td class="text-center" colspan="4">No Hosts currently active on the network.</td>
+    </tr>
+</tbody>
+</table>
+

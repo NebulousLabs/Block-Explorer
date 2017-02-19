@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Sia Explorer Alpha - Hosts</title>
+  </head>
+  <body>
+    <h1>Sia Explorer Alpha - Hosts</h1>
+    <table>
+      <tr>
+	<td>Number of Hosts</td>
+	<td>{{.Length}}</td>
+      </tr>
+    </table>
+    <table>
+      <tr>
+	<td>Host Address</td>
+	<td>Host Storage</td>
+	<td>Price</td>
+      </tr>
+      {{range $element := .Hosts}}
+      <tr>
+	<td>{{$element.IPAddress}}</td>
+	<td>{{int64_uint64 $element.TotalStorage | byteString}}</td>
+	<td>{{siacoinString $element.Price}}</td>
+      </tr>
+      {{end}}
+  </body>
+</html>
