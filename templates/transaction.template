@@ -1,0 +1,96 @@
+  <!-- {{$root := .}} -->
+  <h3>Transaction</h3>
+    <table>
+      <tr>
+	<td>Transaction ID</td>
+	<td>{{printf "%s" .Tx.ID}}</td>
+      </tr>
+      <tr>
+	<td>Block ID</td>
+	<td><a href='hash?h={{printf "%s" .ParentID}}'>{{printf "%s" .ParentID}}</a></td>
+      </tr>
+      <tr>
+	<td>Siacoin Inputs</td>
+	<td>
+	  <table>
+	    <tr>
+	      <td>Output ID</td>
+	      <td>Amount</td>
+	      <td>Address</td>
+	    </tr>
+	    {{range .Tx.SiacoinInputs}}
+	    {{$output := findOutput .ParentID}}
+	    <tr>
+	      <td><a href='hash?h={{printf "%s" .ParentID}}'>{{printf "%s" .ParentID}}</a></td>
+	      <td>{{siacoinString $output.Value}}</td>
+	      <td><a href='hash?h={{$output.UnlockHash.String}}'>{{$output.UnlockHash.String}}</a></td>
+	    {{end}}
+	  </table>
+	</td>
+      </tr>
+      <tr>
+	<td>Siacoin Outputs</td>
+	<td>
+	  <table>
+	    <tr>
+	      <td>Output ID</td>
+	      <td>Amount</td>
+	      <td>Address</td>
+	    </tr>
+	    {{range $index, $element := .Tx.SiacoinOutputs}}
+	    <tr>
+	      <td>
+		<a href='hash?h={{$index | $root.Tx.SiacoinOutputID | printf "%s"}}'>
+		  {{$index | $root.Tx.SiacoinOutputID | printf "%s"}}
+		</a>
+	      </td>
+	      <td>{{siacoinString $element.Value}}</td>
+	      <td><a href='hash?h={{$element.UnlockHash.String}}'>{{$element.UnlockHash.String}}</a></td>
+	    </tr>
+	    {{end}}
+	  </table>
+	</td>
+      </tr>
+    </table>
+    <h4>File Contracts</h4>
+    {{range $index, $element := .Tx.FileContracts}}
+    <h5><a href='hash?h={{$index | $root.Tx.FileContractID | printf "%s"}}'>
+	{{$index | $root.Tx.FileContractID | printf "%s"}}
+    </a></h5>
+    <table>
+      <tr>
+	<td>File Size</td>
+	<td>{{byteString $element.FileSize}}</td>
+      </tr>
+      <tr>
+	<td>Payout</td>
+	<td>{{siacoinString $element.Payout}}</td>
+      </tr>
+      <tr>
+	<td>Valid Outputs</td>
+	<td>
+	  <table>
+	    <tr>
+	      <td>Output ID</td>
+	      <td>Amount</td>
+	      <td>Address</td>
+	    </tr>
+	    {{range $FCindex, $FCelement := $element.ValidProofOutputs}}
+	    {{$fcid := $root.Tx.FileContractID $FCindex}}
+	    <tr>
+	      <td>
+		<a href='hash?h={{$FCindex | uint64 | $fcid.StorageProofOutputID true | printf "%s"}}'>
+		  {{$FCindex | uint64 | $fcid.StorageProofOutputID true | printf "%s"}}
+		</a>
+	      </td>
+	      <td>{{siacoinString $FCelement.Value}}</td>
+	      <td><a href='hash?h={{$FCelement.UnlockHash.String}}'>{{$FCelement.UnlockHash.String}}</a></td>
+	    </tr>
+	    {{end}}
+	  </table>
+	</td>
+      </tr>
+    </table>
+    {{else}}
+    None
+    {{end}}

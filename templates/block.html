@@ -1,0 +1,3 @@
+{{printf "Block %d" .Height |  parseTemplate "header.template" | printf "%s"}}
+{{parseTemplate "block.template" . | printf "%s"}}
+{{printf "Block %d" .Height |  parseTemplate "footer.template" | printf "%s"}}
