@@ -1,0 +1,61 @@
+  <!-- {{$root := .}} -->
+  <h3>Block {{.Height}}</h3>
+    <table>
+      <tr>
+	<td>Block ID</td>
+	<td>{{printf "%x" .Block.ID}}</td>
+      </tr>
+      <tr>
+	<td>Block Parent ID</td>
+	<td><a href='hash?h={{printf "%x" .Block.ParentID}}'>{{printf "%x" .Block.ParentID}}</a></td>
+      </tr>
+      <tr>
+	<td>Child</td>
+	<td><a href='height?h={{increment .Height}}'>Block {{increment .Height}}</a></td>
+      </tr>
+      <tr>
+	<td>Block Timestamp</td>
+	<td>{{timeString .Block.Timestamp}}</td>
+      </tr>
+      <tr>
+	<td>Block Target</td>
+	<td>{{printf "%x" .Target}}</td>
+      </tr>
+      <tr>
+	<td>Block Size</td>
+	<td>{{byteString .Size}}</td>
+      </tr>
+      <tr>
+	<td>Transcations</td>
+	<td>
+	  <ul>
+	    {{range .Block.Transactions}}
+	    <li><a href='hash?h={{printf "%x" .ID}}'>{{printf "%x" .ID}}</a></li>
+	    {{end}}
+	  </ul>
+	</td>
+      </tr>
+      <tr>
+	<td>Miner Payouts</td>
+	<td>
+	  <table>
+	    <tr>
+	      <td>Output ID</td>
+	      <td>Amount</td>
+	      <td>Address</td>
+      	    </tr>
+	    {{range $index, $element := .Block.MinerPayouts}}
+	    <tr>
+	      <td>
+		<a href='hash?h={{$index | $root.Block.MinerPayoutID | printf "%x"}}'>
+		  {{$index | $root.Block.MinerPayoutID | printf "%x"}}
+		</a>
+	      </td>
+	      <td>{{siacoinString $element.Value}}</td>
+	      <td><a href='hash?h={{$element.UnlockHash.String}}'>{{$element.UnlockHash.String}}</a></td>
+	    </tr>
+	    {{end}}
+	  </table>
+	</td>
+      </tr>
+    </table>

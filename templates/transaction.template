@@ -1,0 +1,86 @@
+  <!-- {{$root := .}} -->
+  <h3>Transaction</h3>
+    <table>
+      <tr>
+	<td>Transaction ID</td>
+	<td>{{printf "%x" .Tx.ID}}</td>
+      </tr>
+      <tr>
+	<td>Block ID</td>
+	<td><a href='hash?h={{printf "%x" .ParentID}}'>{{printf "%x" .ParentID}}</a></td>
+      </tr>
+      <tr>
+	<td>Siacoin Inputs</td>
+	<td>
+	  <ul>
+	    {{range .Tx.SiacoinInputs}}
+	    <li><a href='hash?h={{printf "%x" .ParentID}}'>{{printf "%x" .ParentID}}</a></li>
+	    {{end}}
+	  </ul>
+	</td>
+      </tr>
+      <tr>
+	<td>Siacoin Outputs</td>
+	<td>
+	  <table>
+	    <tr>
+	      <td>Output ID</td>
+	      <td>Amount</td>
+	      <td>Address</td>
+	    </tr>
+	    {{range $index, $element := .Tx.SiacoinOutputs}}
+	    <tr>
+	      <td>
+		<a href='hash?h={{$index | $root.Tx.SiacoinOutputID | printf "%x"}}'>
+		  {{$index | $root.Tx.SiacoinOutputID | printf "%x"}}
+		</a>
+	      </td>
+	      <td>{{siacoinString $element.Value}}</td>
+	      <td><a href='hash?h={{$element.UnlockHash.String}}'>{{$element.UnlockHash.String}}</a></td>
+	    </tr>
+	    {{end}}
+	  </table>
+	</td>
+      </tr>
+    </table>
+    <h4>File Contracts</h4>
+    {{range $index, $element := .Tx.FileContracts}}
+    <h6><a href='hash?h={{$index | $root.Tx.FileContractID | printf "%x"}}>
+	{{$index | $root.Tx.FileContractID | printf "%x"}}
+    </a></h6>
+    <table>
+      <tr>
+	<td>File Size</td>
+	<td>{{byteString $element.FileSize}}</td>
+      </tr>
+      <tr>
+	<td>Payout</td>
+	<td>{{siacoinString $element.Payout}}</td>
+      </tr>
+      <tr>
+	<td>Valid Outputs</td>
+	<td>
+	  <table>
+	    <tr>
+	      <td>Output ID</td>
+	      <td>Amount</td>
+	      <td>Address</td>
+	    </tr>
+	    {{range $FCindex, $FCelement := $element.ValidProofOutputst}}
+	    <tr>
+	      <td>
+		<a href='hash?h={{$FCindex | $element.StorageProofOutputID true | printf "%x"}}'>
+		  {{$FCindex | $element.StorageProofOutputID | printf "%x"}}
+		</a>
+	      </td>
+	      <td>{{siacoinString $FCelement.Value}}</td>
+	      <td><a href='hash?h={{$FCelement.UnlockHash.String}}'>{{$FCelement.UnlockHash.String}}</a></td>
+	    </tr>
+	    {{end}}
+	  </table>
+	</td>
+      </tr>
+    </table>
+    {{else}}
+    None
+    {{end}}
